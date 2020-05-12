@@ -122,7 +122,7 @@ static int FoundKeyword(unsigned char* b0, int l0, unsigned char* b1, int l1, un
     unsigned char buffer[2*LINE_LENGTH+1];
     int len = l0+l1 - lk;
     if (lk <=0)
-        return -1;
+        return 0; //no keyword to search
     memcpy(buffer, b0, l0);
     if (l1 > 0 && l1 <= LINE_LENGTH)
         memcpy(buffer + l0, b1, l1);
@@ -143,18 +143,18 @@ static int FoundKeyword(unsigned char* b0, int l0, unsigned char* b1, int l1, un
 int main( int argc, char* argv[])
 {
     int ch;
-	unsigned char buffer[2][LINE_LENGTH];
+    unsigned char buffer[2][LINE_LENGTH];
     unsigned char* line0, *line1;
     unsigned char keyword[LINE_LENGTH];
-	size_t offset = 0;
-	size_t nRead0;
-	size_t nRead1;
+    int nKeyword= 0;
+    size_t offset = 0;
+    size_t nRead0;
+    size_t nRead1;
     size_t nStart = 0;
     size_t nEnd = -1;
-    int nKeyword = 0;
 
     char* fileName = NULL;
-	FILE* fpIn = NULL;
+    FILE* fpIn = NULL;
 
     while ((ch = getopt(argc, argv, "k:K:s:t:?")) != -1)
     {
